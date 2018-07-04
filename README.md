@@ -17,14 +17,10 @@ The aim is to provide brief and user-friendly documentation: if any details are 
 
 
 ## Thanks
------
-
 This pipeline has been developed with huge thanks to the contributions from: Ben Mort, Fred Dulwich, and many more from within the SIP team.
 
 
 ## Quick-start
------
-
 Based on: <https://github.com/dask/dask-docker>
 
 The cluster can be deployed to a local Docker installation with [`docker-compose`](https://docs.docker.com/compose/overview/).
@@ -52,27 +48,28 @@ token printed in the logs when starting this container
 (eg. `docker logs dask_cluster_notebook_1`)
 
 The cluster can then be accessed using:
-```docker exec -it dask_cluster_scheduler_1 bash
+```bash
+docker exec -it dask_cluster_scheduler_1 bash
 ```
 
 The Docker container has been tested, and will automatically connect to the scheduler.
 
 Finally, the DPrepB/C pipeline can be run using:
-```python sandbox/pipe_parallel.py
+```bash
+python sandbox/pipe_parallel.py
 ```
 if your machine is struggling to process 40 channels with Dask given finite resources, then one can use the ```--channels``` argument:
-```python sandbox/pipe_parallel.py -c 10
+```bash
+python sandbox/pipe_parallel.py -c 10
 ```
 
 Note that in order to access the simulated test data for imaging, the `docker-compose.yml` file binds volumes so that they are accessible from within the Docker container. The `source` for each volume will need to be modified to the location of the simulated data on your machine.
 
 
 ## Simulated Data
------
 Two simulated datasets are included in measurement set format for the purpose of testing the pipeline. These datasets include 40 spectral channels. The simulation is of a field of view which contains four radio sources - each with different polarised radio properties. These data were simulated using [`OSKAR`](https://github.com/OxfordSKA/OSKAR).
 
 
 ## Dependencies
-------------
 
 See Docker file.
