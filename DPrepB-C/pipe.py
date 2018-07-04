@@ -66,7 +66,7 @@ def main(args):
     # Define a Data Array Format
     # ------------------------------------------------------
     def gen_data(channel):
-        return np.array([vis1[channel], vis2[channel], channel, stations, lofar_stat_pos, False, False, args.plots, float(args.uvcut), float(args.pixels), POLDEF, args.outputs, float(args.angres), None, None, None, None, None, None, args.twod])
+        return np.array([vis1[channel], vis2[channel], channel, None, None, False, False, args.plots, float(args.uvcut), float(args.pixels), POLDEF, args.outputs, float(args.angres), None, None, None, None, None, None, args.twod])
     
     # Setup the Dask Cluster
     # ------------------------------------------------------

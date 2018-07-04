@@ -51,6 +51,10 @@ The cluster can then be accessed using:
 ```bash
 docker exec -it dask_cluster_scheduler_1 bash
 ```
+or
+```bash
+docker exec -it ska-sip-dprepb-c-pipeline_scheduler_1 bash
+```
 
 The Docker container has been tested, and will automatically connect to the scheduler.
 
