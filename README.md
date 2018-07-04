@@ -13,17 +13,19 @@ The pipeline can be deployed to a local Docker installation. No IP address is re
 
 Various additional features will be implemented and released in due course, including parallelisation of the image invert using dask delayed and ARL execute, parallelisation of the image deconvolution, and the source-finding and RM Synthesis codes that constitute parts of a LOFAR MSSS/MAPS pipeline.
 
-The aim is to provide brief and user-friendly documentation: if any details are missing, overly verbose, or unclear, then please get in contact, so that the documentation can be updated.
+The aim is to provide brief and user-friendly documentation: if any details are missing, overly verbose, or unclear, then please get in contact so that the documentation can be updated.
 
 
 ## Thanks
-This pipeline has been developed with huge thanks to the contributions from: Ben Mort, Fred Dulwich, and many more from within the SIP team.
+This pipeline has been developed with huge thanks to the contributions from: Ben Mort, Fred Dulwich, Tim Cornwell, and many more throughout the SIP team.
 
 
 ## Quick-start
 Based on: <https://github.com/dask/dask-docker>
 
-The cluster can be deployed to a local Docker installation with [`docker-compose`](https://docs.docker.com/compose/overview/).
+Note that in order to access the simulated test data for imaging, the `docker-compose.yml` file binds volumes so that they are accessible from within the Docker container. The `source` for each volume will need to be modified to the location of the simulated data on your machine.
+
+The cluster can then be deployed to a local Docker installation with [`docker-compose`](https://docs.docker.com/compose/overview/).
 
 To start the cluster:
 
@@ -56,15 +58,12 @@ The Docker container has been tested, and will automatically connect to the sche
 
 Finally, the DPrepB/C pipeline can be run using:
 ```bash
-python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py
+python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py [--help]
 ```
-if your machine is struggling to process 40 channels with Dask given finite resources, then one can use the ```--channels``` argument:
+The default settings should work together with the simulated datasets. If your machine is struggling to process all 40 channels with Dask given finite resources, then one can use the ```--channels``` argument:
 ```bash
 python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c 10
 ```
-
-Note that in order to access the simulated test data for imaging, the `docker-compose.yml` file binds volumes so that they are accessible from within the Docker container. The `source` for each volume will need to be modified to the location of the simulated data on your machine.
-
 
 ## Simulated Data
 Two simulated datasets are included in measurement set format for the purpose of testing the pipeline. These datasets include 40 spectral channels. The simulation is of a field of view which contains four radio sources - each with different polarised radio properties. These data were simulated using [`OSKAR`](https://github.com/OxfordSKA/OSKAR).
@@ -72,4 +71,4 @@ Two simulated datasets are included in measurement set format for the purpose of
 
 ## Dependencies
 
-See Docker file.
+See Dockerfile.

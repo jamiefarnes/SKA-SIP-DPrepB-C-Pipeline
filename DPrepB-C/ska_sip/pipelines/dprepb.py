@@ -33,10 +33,10 @@ __email__ = "jamie.farnes@oerc.ox.ac.uk"
 
 
 def dprepb_imaging(vis_input):
-    """Do DPrepB/C imaging of visibility data.
+    """The DPrepB/C imaging pipeline for visibility data.
         
     Args:
-    vis_input (array): data array of ARL visibility data and parameters.
+    vis_input (array): array of ARL visibility data and parameters.
     
     Returns:
     restored: clean image.
