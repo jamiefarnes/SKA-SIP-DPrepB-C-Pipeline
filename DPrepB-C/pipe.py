@@ -74,7 +74,6 @@ def main(args):
 
     dask.config.set(get=dask.distributed.Client.get)
     client = Client(args.daskaddress)  # scheduler for Docker container, localhost for P3.
-    print(client.get_worker_logs())
     
     print("Dask Client details:")
     print(client)
@@ -160,6 +159,7 @@ def main(args):
     # ------------------------------------------------------
     # Now use 'distributed Dask arrays' in order to parallelise the Moment image calculation:
     # Construct a small Dask array for every future:
+    print("")
     print("Calculating Moment images:")
     print("")
     arrays = [da.from_delayed(future, dtype=np.dtype('float64'), shape=(1, 4, 512, 512)) for future in futures]
