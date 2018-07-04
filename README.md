@@ -45,7 +45,7 @@ The cluster creates three services
 
 -   **notebook**: Published on <http://localhost:8888> but must log in with the
 token printed in the logs when starting this container
-(eg. `docker logs dask_cluster_notebook_1`)
+(eg. `docker logs ska-sip-dprepb-c-pipeline_notebook_1`)
 
 The cluster can then be accessed using:
 ```bash
