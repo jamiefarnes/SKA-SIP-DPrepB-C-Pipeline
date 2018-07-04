@@ -7,8 +7,6 @@ import argparse
 
 import numpy as np
 
-import pyrap.tables as tab
-
 from processing_components.image.operations import import_image_from_fits, export_image_to_fits, qa_image
 
 from ska_sip.telescopetools.initinst import init_inst

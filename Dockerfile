@@ -7,16 +7,13 @@ MAINTAINER Jamie Farnes <jamie.farnes@oerc.ox.ac.uk>
 # As root, set up a python3.5 conda environment, activate, and install dask:
 USER root
 RUN mkdir sdp
-RUN conda install python=3.5 && conda install dask distributed && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore
+RUN conda install python=3.5 && conda install dask distributed && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib
 
 # As root, install various essential packages
 RUN apt-get update && apt-get install -y graphviz git && apt-get -y install build-essential && apt-get -y install libssl-dev libffi-dev
 
-# Install precursors to git-lfs and kernsuite
-RUN sudo apt-get -y install software-properties-common
-RUN apt-get -y install curl
-
 # Install git-lfs
+RUN apt-get -y install curl
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 RUN apt-get -y install git-lfs
 RUN git lfs install
@@ -26,9 +23,6 @@ WORKDIR /home/jovyan/sdp
 
 # Download the SIP DPrepB-C pipeline
 RUN git clone https://github.com/jamiefarnes/SKA-SIP-DPrepB-C-Pipeline
-
-# Download the RMextract repository
-RUN git clone https://github.com/lofar-astron/RMextract
 
 # Download the SKA Algorithm Reference Library (ARL)
 RUN git clone https://github.com/SKA-ScienceDataProcessor/algorithm-reference-library &&\
@@ -43,22 +37,14 @@ ENV PYTHONPATH=$PYTHONPATH:/home/jovyan/sdp/algorithm-reference-library/:/opt/co
 
 # Download the requirements for ARL
 # and uninstall conflicting version of numpy and reinstall
-# and downgrade astropy to a version compatible with Aegean
 WORKDIR /home/jovyan/sdp/algorithm-reference-library
 RUN pip install -r requirements.txt &&\
     pip uninstall -y numpy &&\
-    pip uninstall -y astropy &&\
-    conda install numpy &&\
-    conda install astropy==2.0.6
+    conda install numpy
 
 # Setup/install the SIP MAPS Pipeline
 WORKDIR /opt/conda/lib/python3.5/
 RUN ln -s ~/sdp/SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/ska_sip
-
-# Setup/install RMextract
-WORKDIR /home/jovyan/sdp/RMextract
-RUN python setup.py build
-RUN python setup.py install
 
 WORKDIR /opt/conda/lib/python3.5/
 RUN ln -s ~/sdp/algorithm-reference-library/data
