@@ -7,17 +7,10 @@ MAINTAINER Jamie Farnes <jamie.farnes@oerc.ox.ac.uk>
 # As root, set up a python3.5 conda environment, activate, and install dask:
 USER root
 RUN mkdir sdp
-RUN conda install python=3.5
-RUN conda install dask distributed
-RUN conda install setuptools
-RUN conda install numpy
-RUN conda install -c conda-forge matplotlib
-RUN conda install -c conda-forge casacore && conda install -c conda-forge python-casacore
+RUN conda install python=3.5 && conda install dask distributed && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore
 
 # As root, install various essential packages
-RUN apt-get update && apt-get install -y graphviz git
-RUN apt-get -y install build-essential
-RUN apt-get -y install libssl-dev libffi-dev
+RUN apt-get update && apt-get install -y graphviz git && apt-get -y install build-essential && apt-get -y install libssl-dev libffi-dev
 
 # Install precursors to git-lfs and kernsuite
 RUN sudo apt-get -y install software-properties-common
@@ -31,9 +24,8 @@ RUN git lfs install
 # Set working directory
 WORKDIR /home/jovyan/sdp
 
-# Download the SIP MAPS pipeline
-RUN git clone https://github.com/SKA-ScienceDataProcessor/sip-maps-pipeline
-RUN git clone https://github.com/jamiefarnes/sandbox
+# Download the SIP DPrepB-C pipeline
+RUN git clone https://github.com/jamiefarnes/SKA-SIP-DPrepB-C-Pipeline
 
 # Download the RMextract repository
 RUN git clone https://github.com/lofar-astron/RMextract
@@ -61,8 +53,7 @@ RUN pip install -r requirements.txt &&\
 
 # Setup/install the SIP MAPS Pipeline
 WORKDIR /opt/conda/lib/python3.5/
-#RUN ln -s ~/sdp/sip-maps-pipeline/sip
-RUN ln -s ~/sdp/sandbox/ska_sip
+RUN ln -s ~/sdp/SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/ska_sip
 
 # Setup/install RMextract
 WORKDIR /home/jovyan/sdp/RMextract

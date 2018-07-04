@@ -56,11 +56,11 @@ The Docker container has been tested, and will automatically connect to the sche
 
 Finally, the DPrepB/C pipeline can be run using:
 ```bash
-python sandbox/pipe_parallel.py
+python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py
 ```
 if your machine is struggling to process 40 channels with Dask given finite resources, then one can use the ```--channels``` argument:
 ```bash
-python sandbox/pipe_parallel.py -c 10
+python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c 10
 ```
 
 Note that in order to access the simulated test data for imaging, the `docker-compose.yml` file binds volumes so that they are accessible from within the Docker container. The `source` for each volume will need to be modified to the location of the simulated data on your machine.
