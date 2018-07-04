@@ -21,13 +21,9 @@ from processing_components.image.deconvolution import restore_cube
 
 from ska_sip.metamorphosis.filter import uv_cut, uv_advice
 from ska_sip.metamorphosis.convert import convert_to_stokes
-from ska_sip.metamorphosis.beam import beam_me_up, apply_station_beams
 from ska_sip.outflows.images.imaging import wstack, image_2d
 from ska_sip.outflows.images.deconvolution import deconvolve_cube_complex
-from ska_sip.outflows.rmsynthesis.rmsynth import load_im_data, rmsynth_advice, do_rmsynth, rmcube_save_to_disk
-from ska_sip.outflows.rmsynthesis.rmclean import rmclean_prep, do_rmclean
-from ska_sip.outflows.moments.moments import load_moments_data, calc_moments, moments_save_to_disk
-from ska_sip.eventhorizon.plot import uv_cov, uv_dist, plt_rmsf
+from ska_sip.eventhorizon.plot import uv_cov, uv_dist
 
 sys.stdout.close()
 sys.stdout = sys.__stdout__
@@ -88,13 +84,6 @@ def dprepb_imaging(vis_input):
     if MAKE_PLOTS:
         uv_cov(vis)
         uv_dist(vis)
-    
-    # Primary Beam Correction
-    # ------------------------------------------------------
-    # Apply the primary beam of the instrument:
-    if APPLY_BEAM:
-        beams = beam_me_up(INPUTS_DIR, MS1)  # use only one MS (each MS should have identical station positions, phase centre, etc.)
-        vis = apply_station_beams(vis, beams, channel)
 
     # Imaging and Deconvolution
     # ------------------------------------------------------
