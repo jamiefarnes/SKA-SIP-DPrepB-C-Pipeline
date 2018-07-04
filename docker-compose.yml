@@ -1,0 +1,47 @@
+version: '3.6'
+
+services:
+
+    scheduler:
+        image: daskdev/dask
+        hostname: dask-scheduler
+        ports:
+            - 8786:8786
+            - 8787:8787
+        command: ["dask-scheduler"]
+        build: .
+        volumes: 
+            - type: bind
+              source: /Users/jamie/Data/SIP-Data/inputs-docker
+              target: /data/inputs
+            - type: bind
+              source: /Users/jamie/Data/SIP-Data/outputs-docker
+              target: /data/outputs
+
+
+    worker:
+        image: daskdev/dask
+        hostname: dask-worker
+        command: ["dask-worker", "scheduler:8786"]
+        build: .
+        volumes: 
+            - type: bind
+              source: /Users/jamie/Data/SIP-Data/outputs-docker
+              target: /data/outputs
+
+
+    notebook:
+        image: daskdev/dask-notebook
+        hostname: notebook
+        ports:
+            - 8888:8888
+        build: .
+        volumes: 
+            - type: bind
+              source: /Users/jamie/Data/SIP-Data/inputs-docker
+              target: /data/inputs
+            - type: bind
+              source: /Users/jamie/Data/SIP-Data/outputs-docker
+              target: /data/outputs
+
+
