@@ -23,7 +23,7 @@ This pipeline has been developed with huge thanks to the contributions from: Ben
 ## Quick-start
 Based on: <https://github.com/dask/dask-docker>
 
-Note that in order to access the simulated test data for imaging, the `docker-compose.yml` file binds volumes so that they are accessible from within the Docker container. The `source` for each volume will need to be modified to the location of the simulated data on your machine.
+Note that no adjustment of any files or parameters should be required. The `docker-compose.yml` file should work 'as is'. The docker-compose file will bind volumes so that they are accessible from within the Docker container. The `source` for each volume should not need to be modified, and will automatically point to the location of the simulated data in `inputs-docker`.
 
 The cluster can then be deployed to a local Docker installation with [`docker-compose`](https://docs.docker.com/compose/overview/).
 
@@ -32,6 +32,7 @@ To start the cluster:
 ```bash
 docker-compose up -d --build
 ```
+Note that the --build argument is not required if the cluster has already been built.
 
 To destroy the cluster:
 
@@ -62,7 +63,12 @@ python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py [--help]
 ```
 The default settings should work together with the simulated datasets. If your machine is struggling to process all 40 channels with Dask given finite resources, then one can use the ```--channels``` argument:
 ```bash
-python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c 10
+python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10
+```
+
+In order to use w-stacking during the imaging process:
+```bash
+python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10 -2d=False
 ```
 
 ## Simulated Data

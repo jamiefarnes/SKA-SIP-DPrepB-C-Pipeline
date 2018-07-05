@@ -3,7 +3,7 @@ version: '3.6'
 services:
 
     scheduler:
-        image: daskdev/dask
+        image: ska-sip-dprepb-c-pipeline
         hostname: dask-scheduler
         ports:
             - 8786:8786
@@ -12,36 +12,36 @@ services:
         build: .
         volumes: 
             - type: bind
-              source: /Users/jamie/Data/SIP-Data/inputs-docker
+              source: ./inputs-docker
               target: /data/inputs
             - type: bind
-              source: /Users/jamie/Data/SIP-Data/outputs-docker
+              source: ./outputs-docker
               target: /data/outputs
 
 
     worker:
-        image: daskdev/dask
+        image: ska-sip-dprepb-c-pipeline
         hostname: dask-worker
         command: ["dask-worker", "scheduler:8786"]
         build: .
         volumes: 
             - type: bind
-              source: /Users/jamie/Data/SIP-Data/outputs-docker
+              source: ./outputs-docker
               target: /data/outputs
 
 
     notebook:
-        image: daskdev/dask-notebook
+        image: ska-sip-dprepb-c-pipeline
         hostname: notebook
         ports:
             - 8888:8888
         build: .
         volumes: 
             - type: bind
-              source: /Users/jamie/Data/SIP-Data/inputs-docker
+              source: ./inputs-docker
               target: /data/inputs
             - type: bind
-              source: /Users/jamie/Data/SIP-Data/outputs-docker
+              source: ./outputs-docker
               target: /data/outputs
 
 
