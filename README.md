@@ -21,8 +21,6 @@ This pipeline has been developed with huge thanks to the contributions from: Ben
 
 
 ## Quick-start
-Based on: <https://github.com/dask/dask-docker>
-
 Assuming that Docker is already installed, it is possible to download the pipeline and data, to build and deploy the Docker containers, and to image 10 channels of the simulated data, using just 5 lines of code:
 ```bash
 git clone https://github.com/jamiefarnes/SKA-SIP-DPrepB-C-Pipeline
@@ -33,6 +31,8 @@ python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10 -2d=False
 ```
 
 ## Running the Pipeline
+Based on: <https://github.com/dask/dask-docker>
+
 Note that no adjustment of any files or parameters should be required. The `docker-compose.yml` file should work 'as is'. The docker-compose file will bind volumes so that they are accessible from within the Docker container. The `source` for each volume should not need to be modified, and will automatically point to the location of the simulated data in `inputs-docker`.
 
 The cluster can then be deployed to a local Docker installation with [`docker-compose`](https://docs.docker.com/compose/overview/).
