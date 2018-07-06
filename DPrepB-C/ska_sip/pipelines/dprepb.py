@@ -19,7 +19,7 @@ from processing_components.image.operations import export_image_to_fits
 from processing_components.visibility.operations import append_visibility
 from processing_components.image.deconvolution import restore_cube
 
-from ska_sip.metamorphosis.filter import uv_cut, uv_advice
+from ska_sip.metamorphosis.filter import uv_cut
 from ska_sip.metamorphosis.convert import convert_to_stokes
 from ska_sip.outflows.images.imaging import wstack, image_2d
 from ska_sip.outflows.images.deconvolution import deconvolve_cube_complex
@@ -63,6 +63,8 @@ def dprepb_imaging(vis_input):
     times2 = vis_input[17]
     time_indices2 = vis_input[18]
     twod_imaging = vis_input[19]
+    npixel_advice = vis_input[20]
+    cell_advice = vis_input[21]
     
     # Make a results directory on the worker:
     os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -78,7 +80,6 @@ def dprepb_imaging(vis_input):
     
     # Apply a uv-distance cut to the data:
     vis = uv_cut(vis, UV_CUTOFF)
-    npixel_advice, cell_advice = uv_advice(vis, UV_CUTOFF, PIXELS_PER_BEAM)
     
     # Make some basic plots:
     if MAKE_PLOTS:

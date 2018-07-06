@@ -8,7 +8,9 @@ import argparse
 import numpy as np
 
 from processing_components.image.operations import import_image_from_fits, export_image_to_fits, qa_image
+from processing_components.visibility.operations import append_visibility
 
+from ska_sip.metamorphosis.filter import uv_cut, uv_advice
 from ska_sip.telescopetools.initinst import init_inst
 from ska_sip.accretion.ms import load
 from ska_sip.pipelines.dprepb import dprepb_imaging, arl_data_future
@@ -64,7 +66,7 @@ def main(args):
     # Define a Data Array Format
     # ------------------------------------------------------
     def gen_data(channel):
-        return np.array([vis1[channel], vis2[channel], channel, None, None, False, False, args.plots, float(args.uvcut), float(args.pixels), POLDEF, args.outputs, float(args.angres), None, None, None, None, None, None, args.twod])
+        return np.array([vis1[channel], vis2[channel], channel, None, None, False, False, args.plots, float(args.uvcut), float(args.pixels), POLDEF, args.outputs, float(args.angres), None, None, None, None, None, None, args.twod, npixel_advice, cell_advice])
     
     # Setup the Dask Cluster
     # ------------------------------------------------------
@@ -89,6 +91,15 @@ def main(args):
     vis1 = [load('%s/%s' % (args.inputs, args.ms1), range(channel, channel+1), POLDEF) for channel in range(0, int(args.channels))]
     vis2 = [load('%s/%s' % (args.inputs, args.ms2), range(channel, channel+1), POLDEF) for channel in range(0, int(args.channels))]
 
+    # Prepare Measurement Set
+    # ------------------------------------------------------
+    # Combine MSSS snapshots:
+    vis_advice = append_visibility(vis1[0], vis2[0])
+    
+    # Apply a uv-distance cut to the data:
+    vis_advice = uv_cut(vis_advice, UV_CUTOFF)
+    npixel_advice, cell_advice = uv_advice(vis_advice, float(args.uvcut), float(args.pixels))
+    
     # Begin imaging via the Dask cluster
     # ------------------------------------------------------
     # Submit data for each channel to the client, and return an image:
