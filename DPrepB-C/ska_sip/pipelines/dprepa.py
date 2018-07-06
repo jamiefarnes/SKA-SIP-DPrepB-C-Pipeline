@@ -91,7 +91,7 @@ def dprepa_imaging(vis_input):
     vis = convert_to_stokes(vis, POLDEF)
 
     # Image I, Q, U, V, per channel:
-    dirty, psf = image_msf(vis, npixel_advice, cell_advice, channel, RESULTS_DIR)
+    dirty, psf = image_mfs(vis, npixel_advice, cell_advice, channel, RESULTS_DIR)
 
     # Deconvolve (using msmfsclean):
     comp, residual = deconvolve_cube(dirty, psf, niter=100, gain=0.7, algorithm='msmfsclean',
