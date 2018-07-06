@@ -117,7 +117,7 @@ def image_mfs(vis, npixel_advice, cell_advice, channel, results_dir):
         advice = advise_wide_field(vis)
         
         print(vis.frequency)
-        centre_frequency = numpy.array([numpy.average(vis.frequency)])
+        centre_frequency = np.array([np.average(vis.frequency)])
         
         # Create a model image:
         model = create_image_from_visibility(vis, cellsize=cell_advice, npixel=npixel_advice, phasecentre=vis.phasecentre, frequency=centre_frequency, polarisation_frame=PolarisationFrame('stokesIQUV'))
@@ -125,9 +125,9 @@ def image_mfs(vis, npixel_advice, cell_advice, channel, results_dir):
         # Weight the visibilities:
         vis, _, _ = weight_visibility(vis, model)
         
-        dirty, sumwt = invert_function(vis, model, context='2d', padding=2)
+        dirty, sumwt = invert_function(vis, model, context='2d', padding=1)
 
-        psf, sumwt = invert_function(vis, model, context='2d', dopsf=True, padding=2)
+        psf, sumwt = invert_function(vis, model, context='2d', dopsf=True, padding=1)
         
         # Save to disk:
         export_image_to_fits(dirty, '%s/imaging_dirty_mfs-%s.fits'

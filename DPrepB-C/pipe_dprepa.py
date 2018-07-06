@@ -88,8 +88,8 @@ def main(args):
     """
     print("Loading data:")
     print("")
-    vis1 = [load('%s/%s' % (args.inputs, args.ms1), range(channel, channel+1), POLDEF) for channel in range(0, int(args.channels))]
-    vis2 = [load('%s/%s' % (args.inputs, args.ms2), range(channel, channel+1), POLDEF) for channel in range(0, int(args.channels))]
+    vis1 = [load('%s/%s' % (args.inputs, args.ms1), range(0, int(args.channels)), POLDEF)]
+    vis2 = [load('%s/%s' % (args.inputs, args.ms2), range(0, int(args.channels)), POLDEF)]
 
     # Prepare Measurement Set
     # ------------------------------------------------------
@@ -112,10 +112,10 @@ def main(args):
     """
     print("Scatter data to workers:")
     print("")
-    big_job = [client.scatter(gen_data(channel)) for channel in channel_range]
+    big_job = [client.scatter(gen_data(0))]
 
     # Submit jobs to the cluster and create a list of futures:
-    futures = [client.submit(dprepa_imaging, big_job[channel], pure=False, retries=3) for channel in channel_range]
+    futures = [client.submit(dprepa_imaging, big_job[0], pure=False, retries=3)]
     """
     The dprepb_imaging function could generate QA, logging, and pass this information via Data Queues.
     Queues work well for this.
