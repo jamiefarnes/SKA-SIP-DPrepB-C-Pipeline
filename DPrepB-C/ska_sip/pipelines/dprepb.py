@@ -106,6 +106,10 @@ def dprepb_imaging(vis_input):
     # Create the restored image:
     restored = restore_cube(comp, psf, residual, psfwidth=clean_res)
 
+    # Save to disk:
+    export_image_to_fits(restored, '%s/imaging_clean_WStack-%s.fits'
+                     % (RESULTS_DIR, channel))
+
     return restored
 
 
