@@ -97,7 +97,7 @@ def main(args):
     vis_advice = append_visibility(vis1[0], vis2[0])
     
     # Apply a uv-distance cut to the data:
-    vis_advice = uv_cut(vis_advice, UV_CUTOFF)
+    vis_advice = uv_cut(vis_advice, float(args.uvcut))
     npixel_advice, cell_advice = uv_advice(vis_advice, float(args.uvcut), float(args.pixels))
     
     # Begin imaging via the Dask cluster
