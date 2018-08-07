@@ -7,7 +7,7 @@ MAINTAINER Jamie Farnes <jamie.farnes@oerc.ox.ac.uk>
 # As root, set up a python3.5 conda environment, activate, and install dask:
 USER root
 RUN mkdir sdp
-RUN conda install python=3.5 && conda install dask distributed && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore
+RUN conda install python=3.5 && conda install dask distributed && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore && conda install -c conda-forge cfitsio
 
 # As root, install various essential packages
 RUN apt-get update && apt-get install -y graphviz git && apt-get -y install build-essential && apt-get -y install libssl-dev libffi-dev
