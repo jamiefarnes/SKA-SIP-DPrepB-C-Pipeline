@@ -8,9 +8,9 @@ import numpy as np
 
 from data_models.polarisation import PolarisationFrame
 from processing_components.imaging.base import create_image_from_visibility, advise_wide_field
-from processing_components.imaging.imaging_functions import invert_function
 from processing_components.image.operations import export_image_to_fits
 from processing_components.imaging.weighting import weight_visibility
+from workflows.serial.imaging.imaging_serial import invert_serial
 
 __author__ = "Jamie Farnes"
 __email__ = "jamie.farnes@oerc.ox.ac.uk"
@@ -41,9 +41,9 @@ def wstack(vis, npixel_advice, cell_advice, channel, results_dir):
         vis, _, _ = weight_visibility(vis, model)
         
         # Create a dirty image:
-        dirty, sumwt = invert_function(vis, model, context='wstack', facets=1, vis_slices=42)
+        dirty, sumwt = invert_serial(vis, model, context='wstack', facets=1, vis_slices=42)
         # Create the psf:
-        psf, sumwt = invert_function(vis, model, dopsf=True, context='wstack', facets=1, vis_slices=42)
+        psf, sumwt = invert_serial(vis, model, dopsf=True, context='wstack', facets=1, vis_slices=42)
         
         # Save to disk:
         export_image_to_fits(dirty, '%s/imaging_dirty_WStack-%s.fits'
@@ -81,9 +81,9 @@ def image_2d(vis, npixel_advice, cell_advice, channel, results_dir):
         vis, _, _ = weight_visibility(vis, model)
         
         # Create a dirty image:
-        dirty, sumwt = invert_function(vis, model, context='2d', vis_slices=1, padding=2)
+        dirty, sumwt = invert_serial(vis, model, context='2d', vis_slices=1, padding=2)
         # Create the psf:
-        psf, sumwt = invert_function(vis, model, dopsf=True, context='2d', vis_slices=1, padding=2)
+        psf, sumwt = invert_serial(vis, model, dopsf=True, context='2d', vis_slices=1, padding=2)
         
         # Save to disk:
         export_image_to_fits(dirty, '%s/imaging_dirty_WStack-%s.fits'
