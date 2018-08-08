@@ -7,7 +7,7 @@ MAINTAINER Jamie Farnes <jamie.farnes@oerc.ox.ac.uk>
 # As root, set up a python3.5 conda environment, activate, and install dask:
 USER root
 RUN mkdir sdp
-RUN conda install python=3.5 && conda install dask distributed && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore && conda install -c conda-forge cfitsio
+RUN conda install python=3.5 && conda install dask distributed && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore
 
 # As root, install various essential packages
 RUN apt-get update && apt-get install -y graphviz git && apt-get -y install build-essential && apt-get -y install libssl-dev libffi-dev
@@ -25,7 +25,8 @@ WORKDIR /home/jovyan/sdp
 RUN git clone https://github.com/jamiefarnes/SKA-SIP-DPrepB-C-Pipeline
 
 # Download the SKA Algorithm Reference Library (ARL)
-RUN git clone https://github.com/SKA-ScienceDataProcessor/algorithm-reference-library &&\
+RUN apt-get -y install libcfitsio-dev
+RUN git clone https://github.com/jamiefarnes/algorithm-reference-library &&\
     cd ./algorithm-reference-library/ && python setup.py install &&\
     git-lfs pull &&\
     rm -rf ./data/vis &&\
