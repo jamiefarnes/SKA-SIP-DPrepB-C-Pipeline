@@ -53,7 +53,7 @@ def main(args):
     # ------------------------------------------------------
     # Define the Queue Producer settings:
     if args.queues:
-        queue_settings = {'bootstrap.servers': '10.60.253.31:9092', 'message.max.bytes': 100000000}
+        queue_settings = {'bootstrap.servers': 'queues:9092', 'message.max.bytes': 100000000}  #10.60.253.31:9092
     
     # Setup the Confluent Kafka Queue
     # ------------------------------------------------------
