@@ -3,6 +3,9 @@
 """
 # BASIC CONSUMPTION OF QA DATA ON QUEUEING NODE!
 """
+import os
+
+os.system('service zookeeper start')
 
 import time as t
 
