@@ -71,6 +71,7 @@ RUN apt-get -y install oracle-java8-installer
 
 # Install zookeeper, which will be turned on from the docker-compose entrypoint
 RUN apt-get -y install zookeeperd
+RUN service zookeeper start
 
 # Then install confluent-kafka
 RUN apt-get -y install wget
@@ -84,6 +85,7 @@ RUN conda install -c conda-forge python-confluent-kafka
 RUN wget "http://www-us.apache.org/dist/kafka/0.11.0.2/kafka_2.11-0.11.0.2.tgz" --directory-prefix=/home/jovyan/sdp/
 RUN mkdir Kafka
 RUN tar -xvf /home/jovyan/sdp/kafka_2.11-0.11.0.2.tgz -C Kafka/
+RUN sudo ./Kafka/kafka_2.11-0.11.0.2/bin/kafka-server-start.sh ./Kafka/kafka_2.11-0.11.0.2/config/server.properties &
 
 # Define the initial working directory
 WORKDIR /home/jovyan/sdp/
