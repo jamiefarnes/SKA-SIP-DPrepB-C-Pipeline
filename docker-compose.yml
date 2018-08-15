@@ -7,9 +7,9 @@ services:
         ports:
             - 8786:8786
             - 8787:8787  
+            - 9092:9092 
         expose:
             - "2181"
-            - "9092"
         command: ["dask-scheduler"]
         entrypoint: ["bash", "./SKA-SIP-DPrepB-C-Pipeline/docker-entrypoint.sh"]
         build:
