@@ -4,12 +4,16 @@ services:
 
     scheduler:
         image: ska-sip-dprepb-c-pipeline
-        hostname: dask-scheduler
         ports:
             - 8786:8786
-            - 8787:8787
+            - 8787:8787  
+        expose:
+            - "2181"
+            - "9092"
         command: ["dask-scheduler"]
-        build: .
+        entrypoint: ["bash", "./SKA-SIP-DPrepB-C-Pipeline/docker-entrypoint.sh"]
+        build:
+            context: .
         volumes: 
             - type: bind
               source: ./inputs-docker
@@ -23,7 +27,11 @@ services:
         image: ska-sip-dprepb-c-pipeline
         hostname: dask-worker
         command: ["dask-worker", "scheduler:8786"]
-        build: .
+        build:
+            context: .
+        expose:
+            - "2181"
+            - "9092"
         volumes: 
             - type: bind
               source: ./outputs-docker
@@ -31,11 +39,15 @@ services:
 
 
     notebook:
-        image: ska-sip-dprepb-c-pipeline
+        image: ska_notebook
         hostname: notebook
         ports:
             - 8888:8888
-        build: .
+        expose:
+            - "2181"
+            - "9092"
+        build:
+            context: .
         volumes: 
             - type: bind
               source: ./inputs-docker
@@ -44,4 +56,15 @@ services:
               source: ./outputs-docker
               target: /data/outputs
 
+
+    queues:
+        image: qa_aggregator
+        hostname: queues
+        expose:
+            - "2181"
+            - "9092"
+        build:
+            context: .
+            dockerfile: Dockerfile.queues
+        tty: true
 

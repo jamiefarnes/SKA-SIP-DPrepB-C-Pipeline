@@ -282,7 +282,7 @@ ap.add_argument('-inp', '--inputs', help='Input data directory [default /data/in
 ap.add_argument('-out', '--outputs', help='Output data directory [default /data/outputs]', default='/data/outputs')
 ap.add_argument('-ms1', '--ms1', help='Measurement Set 1 [default sim-1.ms]', default='sim-1.ms')
 ap.add_argument('-ms2', '--ms2', help='Measurement Set 2 [default sim-2.ms]', default='sim-2.ms')
-ap.add_argument('-q', '--queues', help='Enable Queues? [default False]', default=False)
+ap.add_argument('-q', '--queues', help='Enable Queues? [default False]', default=True)
 ap.add_argument('-p', '--plots', help='Output diagnostic plots? [default False]', default=False)
 ap.add_argument('-2d', '--twod', help='2D imaging [True] or wstack imaging [False]? [default False]', default=True)
 

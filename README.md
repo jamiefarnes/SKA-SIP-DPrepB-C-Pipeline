@@ -9,9 +9,9 @@ Primary uses includes full-Stokes imaging and Faraday Moments. Beam correction i
 
 The pipeline is designed and intended as a demonstrator of [`Dask`](https://dask.pydata.org/en/latest/) as one plausible Execution Framework, and uses both 'Dask distributed' and 'distributed Dask arrays' in order to process the data. Monitoring and logging can be accessed via Bokeh at <http://localhost:8787>. The pipeline outputs .fits data products, which is one feasible option that is usable by a typical radio astronomer.
 
-The pipeline can be deployed to a local Docker installation. No IP address is required for the scheduler, but can be manually specified as an argument to the Python code if desired. The running of this pipeline within a Docker swarm cluster on P3-AlaSKA, alongside integration with other SIP services, are currently under consideration and active development. Services such as Queues and Quality Assessment (QA) are not fully implemented in this released version and are turned off by default - a Dockerised Queues/QA container will be provided in due course.
+The pipeline can be deployed to a local Docker installation. No IP address is required for the scheduler, but can be manually specified as an argument to the Python code if desired. The running of this pipeline within a Docker swarm cluster on P3-AlaSKA, alongside integration with other SIP services, are currently under consideration and active development. Services such as Queues and Quality Assessment (QA) are now fully implemented in this released version - a Dockerised QA aggregator container is built during installation, with the consumed QA messages being readable via `docker logs ska-sip-dprepb-c-pipeline_queues_1`.
 
-Various additional features will be implemented and released in due course, including parallelisation of the image invert using dask delayed and ARL execute, parallelisation of the image deconvolution, and the source-finding and RM Synthesis codes that constitute parts of a LOFAR MSSS/MAPS pipeline.
+Various additional features will be implemented and released in due course, including the source-finding and RM Synthesis codes that constitute parts of a LOFAR MSSS/MAPS pipeline.
 
 The aim is to provide brief and user-friendly documentation: if any details are missing, overly verbose, or unclear, then please get in contact so that the documentation can be updated.
 
@@ -28,6 +28,11 @@ cd SKA-SIP-DPrepB-C-Pipeline
 docker-compose up -d --build
 docker exec -it ska-sip-dprepb-c-pipeline_scheduler_1 bash
 python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10 -2d=False
+```
+
+The consumed QA messages are readable from the QA aggregator via:
+```
+docker logs ska-sip-dprepb-c-pipeline_queues_1
 ```
 
 ## Running the Pipeline
@@ -87,4 +92,4 @@ Two simulated datasets are included in measurement set format for the purpose of
 
 ## Dependencies
 
-See Dockerfile.
+See Dockerfiles.

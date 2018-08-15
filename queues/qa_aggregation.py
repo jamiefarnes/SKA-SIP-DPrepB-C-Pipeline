@@ -1,16 +1,21 @@
 #!/usr/bin/env python
 
 """
-# BASIC CONSUMPTION OF QA DATA ON QUEUEING NODE!
+A code to consume Queues data within a QA aggregator container.
 """
 import os
-
-os.system('service zookeeper start')
-
 import time as t
 
 from confluent_kafka import Producer, Consumer, KafkaError
 import pickle
+
+__author__ = "Jamie Farnes"
+__email__ = "jamie.farnes@oerc.ox.ac.uk"
+
+# Start the zookeeper service:
+os.system('service zookeeper start')
+
+# Define settings for Confluent Kafka consumer:
 settings = {
      'bootstrap.servers': 'scheduler:9092',
      'group.id': 'mygroup',
@@ -21,8 +26,8 @@ settings = {
      'receive.message.max.bytes': 1000000000,
      'default.topic.config': {'auto.offset.reset': 'smallest'}
 }
-#'bootstrap.servers': '10.60.253.31:9092'
 
+# Consume QA data from queue (available in docker logs):
 c = Consumer(settings)
 c.subscribe(['qa'])
 running = True
@@ -37,4 +42,3 @@ while running:
         print(ingest.error())
 
 c.close()
-
