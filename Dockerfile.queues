@@ -25,7 +25,6 @@ RUN apt-get -y install oracle-java8-installer
 
 # Install zookeeper, which will be turned on from the qa_aggregation.py script
 RUN apt-get -y install zookeeperd
-RUN service zookeeper start
 
 # Install git-lfs
 RUN apt-get -y install curl
