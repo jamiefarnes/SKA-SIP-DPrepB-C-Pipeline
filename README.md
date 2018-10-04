@@ -27,7 +27,7 @@ git clone https://github.com/jamiefarnes/SKA-SIP-DPrepB-C-Pipeline
 cd SKA-SIP-DPrepB-C-Pipeline
 docker-compose up -d --build
 docker exec -it ska-sip-dprepb-c-pipeline_scheduler_1 bash
-python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10 -2d=False
+python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10
 ```
 
 The consumed QA messages are readable from the QA aggregator via:
