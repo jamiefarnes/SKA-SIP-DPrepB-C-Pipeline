@@ -284,7 +284,7 @@ ap.add_argument('-ms1', '--ms1', help='Measurement Set 1 [default sim-1.ms]', de
 ap.add_argument('-ms2', '--ms2', help='Measurement Set 2 [default sim-2.ms]', default='sim-2.ms')
 ap.add_argument('-q', '--queues', help='Enable Queues? [default False]', default=True)
 ap.add_argument('-p', '--plots', help='Output diagnostic plots? [default False]', default=False)
-ap.add_argument('-2d', '--twod', help='2D imaging [True] or wstack imaging [False]? [default False]', default=True)
+ap.add_argument('-2d', '--twod', help='2D imaging [True] or wstack imaging [False]? [default False]', default=False)
 
 ap.add_argument('-uv', '--uvcut', help='Cut-off for the uv-data [default 450]', default=450.0)
 ap.add_argument('-a', '--angres', help='Force the angular resolution to be consistent across the band, in arcmin FWHM [default 8.0]', default=8.0)

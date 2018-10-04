@@ -1,17 +1,17 @@
 SDP Integration Prototype (SIP) DPrepB/C Pipeline
 ========================================
 
-This is a project to create a pipeline for the Square Kilometre Array (SKA) Science Data Processor (SDP) Integration Prototype (SIP), in order to process spectropolarimetric I, Q, U, V data. This is classified within SDP as a DPrepB/C pipeline.
+This is a project to create a pipeline for the Square Kilometre Array (SKA) Science Data Processor (SDP) Integration Prototype (SIP), in order to process spectropolarimetric I, Q, U, V data. This is classified within SDP as a "DPrepB/DPrepC" or spectral imaging pipeline. Further details on the code is provided in SKA SDP Memo 081.
 
-This parallelised code provides a fully-Pythonic pipeline for processing spectropolarimetric radio interferometry visibility data into final data products. The code uses the latest version of ARL.
+This parallelised code provides a fully-Pythonic pipeline for processing spectropolarimetric radio interferometry visibility data into final data products. The code uses the ARL.
 
 Primary uses includes full-Stokes imaging and Faraday Moments. Beam correction is not yet implemented.
 
 The pipeline is designed and intended as a demonstrator of [`Dask`](https://dask.pydata.org/en/latest/) as one plausible Execution Framework, and uses both 'Dask distributed' and 'distributed Dask arrays' in order to process the data. Monitoring and logging can be accessed via Bokeh at <http://localhost:8787>. The pipeline outputs .fits data products, which is one feasible option that is usable by a typical radio astronomer.
 
-The pipeline can be deployed to a local Docker installation. No IP address is required for the scheduler, but can be manually specified as an argument to the Python code if desired. The running of this pipeline within a Docker swarm cluster on P3-AlaSKA, alongside integration with other SIP services, are currently under consideration and active development. Services such as Queues and Quality Assessment (QA) are now fully implemented in this released version - a Dockerised QA aggregator container is built during installation, with the consumed QA messages being readable via `docker logs ska-sip-dprepb-c-pipeline_queues_1`.
+The pipeline can be deployed to a local Docker installation. No IP address is required for the scheduler, but can be manually specified as an argument to the Python code if desired. The running of this pipeline within a Docker swarm cluster on P3-AlaSKA, alongside integration with other SIP services, are currently under consideration and active development. Services such as Queues and Quality Assessment (QA) are now fully implemented in this released version - a Dockerised QA aggregator container is built during installation, with the consumed QA messages being readable via `docker logs ska-sip-dprepb-c-pipeline_qa_1`.
 
-Various additional features will be implemented and released in due course, including the source-finding and RM Synthesis codes that constitute parts of a LOFAR MSSS/MAPS pipeline.
+Various additional features will be implemented and released in due course, including the source-finding and RM Synthesis codes that constitute parts of a LOFAR MSSS/MAPS pipeline. Many of the functions that are used for this purpose are already included in the code available here.
 
 The aim is to provide brief and user-friendly documentation: if any details are missing, overly verbose, or unclear, then please get in contact so that the documentation can be updated.
 
@@ -32,7 +32,7 @@ python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10 -2d=False
 
 The consumed QA messages are readable from the QA aggregator via:
 ```
-docker logs ska-sip-dprepb-c-pipeline_queues_1
+docker logs ska-sip-dprepb-c-pipeline_qa_1
 ```
 
 ## Running the Pipeline
@@ -55,15 +55,17 @@ To destroy the cluster:
 docker-compose rm -s -f
 ```
 
-The cluster creates three services
+The cluster creates four services:
 
--   **scheduler**: Published on <http://localhost:8787>. This service can be accessed for monitoring and logging using Bokeh.
+-   **scheduler**: The Dask scheduler. Published on <http://localhost:8787>. This service can be accessed for monitoring and logging using Bokeh.
 
--   **worker**:
+-   **worker**: The Dask worker service.
 
 -   **notebook**: Published on <http://localhost:8888> but must log in with the
 token printed in the logs when starting this container
 (eg. `docker logs ska-sip-dprepb-c-pipeline_notebook_1`)
+
+-   **qa**: The QA service, on which a QA aggregator is automatically started.
 
 The cluster can then be accessed using:
 ```bash
@@ -81,9 +83,9 @@ The default settings should work together with the simulated datasets. If your m
 python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10
 ```
 
-In order to use w-stacking during the imaging process:
+The pipeline performs w-stacking by default. In order to use a 2D imaging process:
 ```bash
-python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10 -2d=False
+python SKA-SIP-DPrepB-C-Pipeline/DPrepB-C/pipe.py -c=10 -2d=True
 ```
 
 ## Simulated Data

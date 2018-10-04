@@ -56,14 +56,14 @@ services:
               target: /data/outputs
 
 
-    queues:
+    qa:
         image: qa_aggregator
-        hostname: queues
+        hostname: qa
         expose:
             - "2181"
             - "9092"
         build:
             context: .
-            dockerfile: Dockerfile.queues
+            dockerfile: Dockerfile.qa
         tty: true
 
