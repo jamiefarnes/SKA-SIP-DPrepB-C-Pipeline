@@ -43,7 +43,7 @@ ENV PYTHONPATH=$PYTHONPATH:/home/jovyan/sdp/algorithm-reference-library/:/opt/co
 WORKDIR /home/jovyan/sdp/algorithm-reference-library
 RUN pip install -r requirements.txt &&\ 
     pip uninstall -y numpy &&\  
-    conda install numpy
+    pip install numpy
 
 # Setup/install the SIP MAPS Pipeline
 WORKDIR /opt/conda/lib/python3.5/
