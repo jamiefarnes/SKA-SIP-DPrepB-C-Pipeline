@@ -1,5 +1,5 @@
 # Set the base image
-FROM daskdev/dask-notebook:0.19.2
+FROM daskdev/dask-notebook:0.18.1
 
 # Dockerfile author 
 MAINTAINER Jamie Farnes <jamie.farnes@oerc.ox.ac.uk>
@@ -7,7 +7,7 @@ MAINTAINER Jamie Farnes <jamie.farnes@oerc.ox.ac.uk>
 # As root, set up a python3.5 conda environment, activate, and install dask:
 USER root
 RUN mkdir sdp
-RUN conda install python=3.5 && conda install -c conda-forge dask=0.19.2 distributed=1.23.1 && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore=2.4.0 && conda install -c conda-forge python-casacore
+RUN conda install python=3.5 && conda install -c conda-forge dask=0.18.1 distributed=1.23.1 && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore=2.4.0 && conda install -c conda-forge python-casacore
 
 # As root, install various essential packages
 RUN apt-get update && apt-get install -y graphviz git && apt-get -y install build-essential && apt-get -y install libssl-dev libffi-dev
