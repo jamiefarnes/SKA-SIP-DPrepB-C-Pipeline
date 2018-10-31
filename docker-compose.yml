@@ -25,7 +25,7 @@ services:
     worker:
         image: ska-sip-dprepb-c-pipeline
         hostname: dask-worker
-        command: ["dask-worker", "scheduler:8786"]
+        command: ["dask-worker", "--memory-limit 32000000000 --resources MEM=32000000000 scheduler:8786"]
         build:
             context: .
         expose:
