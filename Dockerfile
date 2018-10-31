@@ -10,7 +10,9 @@ RUN mkdir sdp
 RUN conda config --add channels conda-forge
 RUN conda search dask --channel conda-forge
 RUN conda search distributed --channel conda-forge
-RUN conda install python=3.5 && conda install -c conda-forge dask=0.19.2 distributed=1.23.2 && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore
+RUN conda env list
+RUN conda install python=3.5 
+RUN conda install -c conda-forge dask=0.19.2 distributed=1.23.2 && conda install setuptools && conda install numpy && conda install -c conda-forge matplotlib && conda install -c conda-forge casacore && conda install -c conda-forge python-casacore
 
 # As root, install various essential packages
 RUN apt-get update && apt-get install -y graphviz git && apt-get -y install build-essential && apt-get -y install libssl-dev libffi-dev
