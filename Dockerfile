@@ -1,5 +1,5 @@
 # Set the base image
-FROM daskdev/dask-notebook
+FROM daskdev/dask-notebook:0.19.2
 
 # Dockerfile author 
 MAINTAINER Jamie Farnes <jamie.farnes@oerc.ox.ac.uk>
