@@ -1,6 +1,11 @@
 SDP Integration Prototype (SIP) DPrepB/C Pipeline
 ========================================
 
+## Version
+This version of the pipeline is a fixed version of the DPrep pipeline, no longer under active development, which is testable on a standard laptop.
+
+## Information
+
 This is a project to create a pipeline for the Square Kilometre Array (SKA) Science Data Processor (SDP) Integration Prototype (SIP), in order to process spectropolarimetric I, Q, U, V data. This is classified within SDP as a "DPrepB/DPrepC" or spectral imaging pipeline. Further details on the code are provided in SKA SDP Memo 081.
 
 This parallelised code provides a fully-Pythonic pipeline for processing spectropolarimetric radio interferometry visibility data into final data products. The code uses the ARL.
